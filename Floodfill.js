@@ -1,0 +1,42 @@
+var M = 8;
+        var N = 8;
+     
+        function floodFilling(screen, x, y, OldColor, NewColor){
+        
+            if (x < 0 || x >= M || y < 0 || y >= N) return;
+            if (screen[x][y] != OldColor) return;
+
+            screen[x][y] = NewColor;
+    
+            floodFilling(screen, x + 1, y, OldColor, NewColor);
+            floodFilling(screen, x - 1, y, OldColor, NewColor);
+            floodFilling(screen, x, y + 1, OldColor, NewColor);
+            floodFilling(screen, x, y - 1, OldColor, NewColor);
+        }
+    
+        function floodFill(screen, x, y, NewColor) {
+            var OldColor = screen[x][y];
+            if (OldColor == NewColor) return;
+            floodFilling(screen, x, y, OldColor, NewColor);
+        }
+    
+        var screen = [
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 0, 0],
+            [1, 0, 0, 1, 1, 0, 1, 1],
+            [1, 2, 2, 2, 2, 0, 1, 0],
+            [1, 1, 1, 2, 2, 0, 1, 0],
+            [1, 1, 1, 2, 2, 2, 2, 0],
+            [1, 1, 1, 1, 1, 2, 1, 1],
+            [1, 1, 1, 1, 1, 2, 2, 1],
+        ];
+        var x = 4,
+            y = 4,
+            NewColor = 3;
+        floodFill(screen, x, y, NewColor);
+    
+        document.write("After calling to floodFill: <br>");
+        for (var i = 0; i < M; i++) {
+            for (var j = 0; j < N; j++) document.write(screen[i][j] + " ");
+            document.write("<br>");
+        }
